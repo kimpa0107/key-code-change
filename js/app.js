@@ -46,14 +46,12 @@
         
         if (curMode.value === MODE_KEY) {
           output.value = inputRows.map(row => {
-            return keyModule.changeKey(row.split(' '), fromKey.value, targetKey.value);
+            const codes = row.split(' ').filter(item => item.length > 0);
+            return keyModule.changeKey(codes, fromKey.value, targetKey.value);
           });
         } else {
-          if (!inputRows.value) {
-            return;
-          }
           output.value = inputRows.map(row => {
-            const codes = row.split(' ');
+            const codes = row.split(' ').filter(item => item.length > 0);
             if (targetCodeType.value === CODE_TYPE_NUM) {
               return codeModule.toNumber(codes);
             } else if (targetCodeType.value === CODE_TYPE_ALPHABET) {

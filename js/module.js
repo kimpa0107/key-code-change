@@ -13,6 +13,7 @@ const keyModule = (() => {
     const fromBaseCodes = keyMaps[baseKey];
     const targetBaseCode = keyMaps[targetKey];
     return codes.map(code => {
+      code = replaceNonExistCode(code);
       const fromIdx = fromBaseCodes.indexOf(code);
       return targetBaseCode[fromIdx];
     });
@@ -48,6 +49,7 @@ const codeModule = (() => {
   const isKorean = code => /^[도레미파솔라시]/.test(code);
 
   const _toNumber = code => {
+    code = replaceNonExistCode(code);
     code = code + '';
     if (isNumber(code)) {
       return code;
@@ -66,6 +68,7 @@ const codeModule = (() => {
   };
 
   const _toAlphabet = code => {
+    code = replaceNonExistCode(code);
     code = code + '';
     if (isAlphaet(code)) {
       return code.toUpperCase();
@@ -84,6 +87,7 @@ const codeModule = (() => {
   };
 
   const _toKorean = code => {
+    code = replaceNonExistCode(code);
     code = code + '';
     if (isKorean(code)) {
       return code;
@@ -107,6 +111,11 @@ const codeModule = (() => {
 
   return { toNumber, toAlphabet, toKorean };
 })();
+
+
+function replaceNonExistCode(code) {
+  return code.replace(/3\#/g, '4').replace(/7\#/g, '1');
+};
 
 /**
  * Create all KEY codes map
