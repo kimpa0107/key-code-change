@@ -125,7 +125,3 @@ const codeModule = (() => {
 
   return { toNumber, toAlphabet, toKorean };
 })();
-
-console.log(codeModule.toNumber(['1#', 'D', 'e#', '파#', '5', 'a', '시']));
-console.log(codeModule.toAlphabet(['1#', 'D', 'e#', '파#', '5', 'a', '시']));
-console.log(codeModule.toKorean(['1#', 'D', 'e#', '파#', '5', 'a', '시']));
