@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change KEY</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+
+<body>
+  <div id="app">
+    <div class="input-section">
+      <h2>INPUT</h2>
+      <div class="select-options">
+        <div class="dropdown mode-option">
+          <label>MODE:</label>
+          <select v-model="curMode" class="select">
+            <option :value="item.value" v-for="item in modes" :key="item.value">{{ item.label }}</option>
+          </select>
+        </div>
+        <div class="dropdown key-from-option" v-if="curMode === MODE_KEY">
+          <label>FROM:</label>
+          <select v-model="fromKey">
+            <option :value="item" v-for="item in keys" :key="item">{{ item }}</option>
+          </select>
+        </div>
+        <div class="dropdown key-target-option" v-if="curMode === MODE_KEY">
+          <label>TARGET:</label>
+          <select v-model="targetKey">
+            <option :value="item" v-for="item in keys" :key="item">{{ item }}</option>
+          </select>
+        </div>
+        <div class="dropdown code-type-option" v-if="curMode === MODE_CODE">
+          <label>TARGET:</label>
+          <select v-model="targetCodeType">
+            <option :value="item.value" v-for="item in codeTypes" :key="item">{{ item.label }}</option>
+          </select>
+        </div>
+      </div>
+      <textarea class="input" v-model="input" placeholder="Input source code"></textarea>
+      <button class="btn" @click="doChange">Change</button>
+    </div>
+    
+    <div class="output-section">
+      <h2>OUTPUT</h2>
+      <div class="output">
+        <div class="row" v-for="(row, index) in output" :key="index">
+          <template v-for="(col, idx) in row" :key="idx">{{ col }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/vue.global.js"></script>
+  <script src="js/module.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

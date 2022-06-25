@@ -3,25 +3,7 @@
  */
 const keyModule = (() => {
 
-  const keyMaps = {
-    C: ['1', '2', '3', '4', '5', '6', '7'],
-    'C#': ['1#', '2#', '4', '4#', '5#', '6#', '1'],
-    Db: ['1#', '2#', '4', '4#', '5#', '6#', '1'],
-    D: ['2', '3', '4#', '5', '6', '7', '1#'],
-    'D#': ['2#', '4', '5', '5#', '6#', '1', '2'],
-    Eb: ['2#', '4', '5', '5#', '6#', '1', '2'],
-    E: ['3', '4#', '5#', '6', '7', '1#', '2#'],
-    F: ['4', '5', '6', '6#', '1', '2', '3'],
-    'F#': ['4#', '5#', '6#', '7', '1#', '2#', '4'],
-    Gb: ['4#', '5#', '6#', '7', '1#', '2#', '4'],
-    G: ['5', '6', '7', '1', '2', '3', '4#'],
-    'G#': ['5#', '6#', '1', '1#', '2#', '4', '5'],
-    Ab: ['5#', '6#', '1', '1#', '2#', '4', '5'],
-    A: ['6', '7', '1#', '2', '3', '4#', '5#'],
-    'A#': ['6#', '1', '2', '2#', '4', '5', '6'],
-    Bb: ['6#', '1', '2', '2#', '4', '5', '6'],
-    B: ['7', '1#', '2#', '3', '4#', '5#', '6#'],
-  };
+  const keyMaps = createKeyMaps();
 
   const ucfirst = str => str[0].toUpperCase() + str.slice(1);
 
@@ -125,3 +107,79 @@ const codeModule = (() => {
 
   return { toNumber, toAlphabet, toKorean };
 })();
+
+/**
+ * Create all KEY codes map
+ */
+function createKeyMaps() {
+  const CODE_MI = 3;
+  const CODE_FA = 4;
+  const CODE_TI = 7;
+  const CODE_DO = 1;
+  
+  const keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  const map = {};
+  
+  let start = 1;
+  const startSharpIndexes = [1, 3, 6, 8, 10];
+  const equalKey = ['Db', 'Eb', 'Gb', 'Ab'];
+  const equalKeyMap = {
+    'C#': 'Db',
+    'D#': 'Eb',
+    'F#': 'Gb',
+    'G#': 'Ab',
+  };
+  
+  keys.forEach((key, idx) => {
+    map[key] = [];
+  
+    let num = start;
+    const sharp = startSharpIndexes.includes(idx);
+    
+    for (let i = 0; i < 12; i++) {
+      const codes = map[key];
+      if (num > 7) {
+        num = num - 7;
+      }
+    
+      let code = '';
+      if (codes.length === 0) {
+        code = `${num}`;
+        if (i === 0 && sharp) {
+          code = `${code}#`;
+        }
+      } else {
+        const last = codes[codes.length - 1];
+        const fc = parseInt(last[0]);
+        const len = last.length;
+    
+        if (len === 1) {
+          if (fc === CODE_MI) {
+            code = `${CODE_FA}`;
+          } else if (fc === CODE_TI) {
+            code = `${CODE_DO}`;
+          } else {
+            code = `${fc}#`;
+          }
+        } else {
+          code = `${fc+1}`;
+        }
+      }
+  
+      map[key].push(code);
+    }
+  
+    if (key in equalKeyMap) {
+      map[equalKeyMap[key]] = map[key];
+    }
+  
+    const firstCode = map[key][0];
+    const fc = parseInt(firstCode[0]);
+    const len = firstCode.length;
+    if (len === 2 || fc === CODE_MI) {
+      start++;
+    }
+  });
+
+  return map;
+}
