@@ -15,6 +15,9 @@ const keyModule = (() => {
     return codes.map(code => {
       code = replaceNonExistCode(code);
       const fromIdx = fromBaseCodes.indexOf(code);
+      if (fromIdx === -1) {
+        return code;
+      }
       return targetBaseCode[fromIdx];
     });
   };
@@ -64,7 +67,7 @@ const codeModule = (() => {
       const idx = kos.indexOf(fc);
       return nums[idx] + code.slice(1);
     }
-    throw new Error(`input error: ${code}`);
+    return code;
   };
 
   const _toAlphabet = code => {
@@ -83,7 +86,7 @@ const codeModule = (() => {
       const idx = kos.indexOf(fc);
       return codes[idx] + code.slice(1);
     }
-    throw new Error(`input error: ${code}`);
+    return code;
   };
 
   const _toKorean = code => {
@@ -102,7 +105,7 @@ const codeModule = (() => {
       const idx = codes.indexOf(fc);
       return kos[idx] + code.slice(1);
     }
-    throw new Error(`input error: ${code}`);
+    return code;
   };
 
   const toNumber = codes => codes.map(code => _toNumber(code));
