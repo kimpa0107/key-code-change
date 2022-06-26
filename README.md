@@ -48,15 +48,15 @@ change CODE to other type: number, alphabet, korean
 #### Usages
 
 ```js
-console.log(codeModule.toNumber(['1#', 'D', 'e#', '파#', '5', 'a', '시']));
-console.log(codeModule.toAlphabet(['1#', 'D', 'e#', '파#', '5', 'a', '시']));
-console.log(codeModule.toKorean(['1#', 'D', 'e#', '파#', '5', 'a', '시']));
+console.log(codeModule.toNumber(['1#', 'D', 'e', '파#', '5', 'a', '시']));
+console.log(codeModule.toAlphabet(['1#', 'D', 'e', '파#', '5', 'a', '시']));
+console.log(codeModule.toKorean(['1#', 'D', 'e', '파#', '5', 'a', '시']));
 ```
 
 ##### result
 
 ```
-['1#', '2', '3#', '4#', '5', '6', '7']
-['C#', 'D', 'E#', 'F#', 'G', 'A', 'B']
-['도#', '레', '미#', '파#', '솔',  '라', '시']
+['1#', '2', '3', '4#', '5', '6', '7']
+['C#', 'D', 'E', 'F#', 'G', 'A', 'B']
+['도#', '레', '미', '파#', '솔',  '라', '시']
 ```
