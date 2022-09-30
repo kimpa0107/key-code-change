@@ -140,6 +140,7 @@ function createKeyMaps() {
     'D#': 'Eb',
     'F#': 'Gb',
     'G#': 'Ab',
+    'A#': 'Bb',
   };
   
   keys.forEach((key, idx) => {
