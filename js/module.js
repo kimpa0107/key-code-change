@@ -10,8 +10,8 @@ const keyModule = (() => {
   const changeKey = (codes, baseKey, targetKey) => {
     baseKey = ucfirst(baseKey.toLowerCase());
     targetKey = ucfirst(targetKey.toLowerCase());
-    const fromBaseCodes = keyMaps[baseKey];
-    const targetBaseCode = keyMaps[targetKey];
+    const fromBaseCodes = keyMaps[targetKey];
+    const targetBaseCode = keyMaps[baseKey];
     return codes.map(code => {
       code = replaceNonExistCode(code);
       const fromIdx = fromBaseCodes.indexOf(code);
