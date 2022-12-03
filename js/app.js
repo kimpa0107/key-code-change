@@ -46,7 +46,14 @@
         
         if (curMode.value === MODE_KEY) {
           output.value = inputRows.map(row => {
-            const codes = row.split(' ').filter(item => item.length > 0);
+            const codes = [];
+            row.split('').forEach(item => {
+              if (item !== '#') {
+                codes.push(item);
+              } else {
+                codes[codes.length - 1] = `${codes[codes.length - 1]}${item}`;
+              }
+            });
             return keyModule.changeKey(codes, fromKey.value, targetKey.value);
           });
         } else {
